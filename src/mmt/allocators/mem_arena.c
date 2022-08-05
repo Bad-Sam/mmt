@@ -13,11 +13,11 @@
 
 u32 mem_arena_init(mem_arena* arena, u32 mem_size)
 {
-    mmt_debug_assert(arena != NULL);
-    mmt_debug_assert(mem_size != 0u);
+    mmt_debug_check(arena != NULL);
+    mmt_debug_check(mem_size != 0u);
 
 #if MMT_WINDOWS || MMT_LINUX
-    mmt_debug_assert(u32_is_multiple(mem_size, MMT_MEM_PAGE_SIZE)
+    mmt_debug_check(u32_is_multiple(mem_size, MMT_MEM_PAGE_SIZE)
                      && "Use ceil_to_page_size() or make passed size a multiple of MMT_MEM_PAGE_SIZE");
 #endif
 
@@ -43,7 +43,7 @@ u32 mem_arena_init(mem_arena* arena, u32 mem_size)
 
 void mem_arena_shrink(mem_arena* arena)
 {
-    mmt_debug_assert(arena != NULL);
+    mmt_debug_check(arena != NULL);
     
     u32 new_size = ceil_to_page_size(arena->top_idx);
 
@@ -61,7 +61,7 @@ void mem_arena_shrink(mem_arena* arena)
 
 void mem_arena_destroy(mem_arena* arena)
 {
-    mmt_debug_assert(arena != NULL);
+    mmt_debug_check(arena != NULL);
     
 #if MMT_WINDOWS
     VirtualFree(arena->mem, 0, MEM_RELEASE);
@@ -75,14 +75,14 @@ void mem_arena_destroy(mem_arena* arena)
 
 u8* mem_arena_alloc(mem_arena* arena, u32 alloc_size)
 {
-    mmt_debug_assert(arena != NULL);
-    mmt_debug_assert(alloc_size != 0u);
+    mmt_debug_check(arena != NULL);
+    mmt_debug_check(alloc_size != 0u);
 
     u32 alloc_start_idx = arena->top_idx;
     
     arena->top_idx += alloc_size;
 
-    mmt_debug_assert(arena->top_idx <= arena->size);
+    mmt_debug_check(arena->top_idx <= arena->size);
 
     return arena->mem + alloc_start_idx;
 }
@@ -90,15 +90,15 @@ u8* mem_arena_alloc(mem_arena* arena, u32 alloc_size)
 
 u8* mem_arena_alloc_aligned(mem_arena* arena, u32 alloc_size, u32 alignment)
 {
-    mmt_debug_assert(arena != NULL);
-    mmt_debug_assert(alloc_size != 0u);
-    mmt_debug_assert(alignment > 1u);
+    mmt_debug_check(arena != NULL);
+    mmt_debug_check(alloc_size != 0u);
+    mmt_debug_check(alignment > 1u);
 
     u32 alloc_start_idx = u32_align(arena->top_idx, alignment);
 
     arena->top_idx = alloc_start_idx + alloc_size;
 
-    mmt_debug_assert(arena->top_idx <= arena->size);
+    mmt_debug_check(arena->top_idx <= arena->size);
 
     return arena->mem + alloc_start_idx;
 }
@@ -106,7 +106,7 @@ u8* mem_arena_alloc_aligned(mem_arena* arena, u32 alloc_size, u32 alignment)
 
 void mem_arena_reset(mem_arena* arena)
 {
-    mmt_debug_assert(arena != NULL);
+    mmt_debug_check(arena != NULL);
 
     arena->top_idx = 0u;
 }

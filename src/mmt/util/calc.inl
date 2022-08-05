@@ -11,8 +11,8 @@ inline u32 u32_is_multiple(u32 n, u32 multiple)
 
 inline u32 u32_align(u32 n, u32 alignment_pow_of_2)
 {
-    mmt_debug_assert(alignment_pow_of_2 > 1u);
-    mmt_debug_assert(u32_is_pow_of_2(alignment_pow_of_2));
+    mmt_debug_check(alignment_pow_of_2 > 1u);
+    mmt_debug_check(u32_is_pow_of_2(alignment_pow_of_2));
 
     u32 mask = alignment_pow_of_2 - 1u;
 
@@ -22,8 +22,8 @@ inline u32 u32_align(u32 n, u32 alignment_pow_of_2)
 
 inline u32 u32_align_up(u32 n, u32 alignment_pow_of_2)
 {
-    mmt_debug_assert(alignment_pow_of_2 > 1u);
-    mmt_debug_assert(u32_is_pow_of_2(alignment_pow_of_2));
+    mmt_debug_check(alignment_pow_of_2 > 1u);
+    mmt_debug_check(u32_is_pow_of_2(alignment_pow_of_2));
 
     u32 modulo = n & (alignment_pow_of_2 - 1u);
 
@@ -39,8 +39,8 @@ inline u32 u32_is_pow_of_2(u32 n)
 
 inline size_t align_address(size_t address, size_t alignment_pow_of_2)
 {
-    mmt_debug_assert(alignment_pow_of_2 > 1u);
-    mmt_debug_assert(address_is_pow_of_2(alignment_pow_of_2));
+    mmt_debug_check(alignment_pow_of_2 > 1u);
+    mmt_debug_check(address_is_pow_of_2(alignment_pow_of_2));
 
     size_t mask = alignment_pow_of_2 - 1u;
 
@@ -50,8 +50,8 @@ inline size_t align_address(size_t address, size_t alignment_pow_of_2)
 
 inline size_t align_address_up(size_t address, size_t alignment_pow_of_2)
 {
-    mmt_debug_assert(alignment_pow_of_2 > 1u);
-    mmt_debug_assert(address_is_pow_of_2(alignment_pow_of_2));
+    mmt_debug_check(alignment_pow_of_2 > 1u);
+    mmt_debug_check(address_is_pow_of_2(alignment_pow_of_2));
 
     size_t modulo = address & (alignment_pow_of_2 - 1u);
 

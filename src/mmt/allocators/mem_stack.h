@@ -3,6 +3,9 @@
 
 #include <mmt/types.h>
 
+// A block of memory from which allocations of any size can be performed.
+// Memory can be released down to a location indicated by an index, in the same way a stack would.
+// Said index can be copied from mem_stack.top_idx after an allocation for instance.
 typedef struct
 {
     u8* mem;

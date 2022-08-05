@@ -9,9 +9,9 @@
 
 void mem_pool_init(mem_pool* pool, u32 element_count, u32 element_size, u32 element_alignment)
 {
-    mmt_debug_assert(pool != NULL);
-    mmt_debug_assert(element_count != 0u);
-    mmt_debug_assert(element_size != 0u);
+    mmt_debug_check(pool != NULL);
+    mmt_debug_check(element_count != 0u);
+    mmt_debug_check(element_size != 0u);
 
     // Same as u32_div_ceiled(element_count, U32_BIT_COUNT), simplified
     u32 bit_array_u32_count = (element_count + 31u) / U32_BIT_COUNT;
@@ -39,7 +39,7 @@ void mem_pool_destroy(mem_pool* pool)
 
 u8* mem_pool_allocate(mem_pool* pool)
 {
-    mmt_debug_assert(pool != NULL);
+    mmt_debug_check(pool != NULL);
 
     u32 bit_array_size = mem_pool_bit_array_size(pool);
     u32 bit_array_idx  = 0u;
@@ -74,10 +74,10 @@ u8* mem_pool_allocate(mem_pool* pool)
 
 void mem_pool_free(mem_pool* pool, u8* elem)
 {
-    mmt_debug_assert(pool != NULL);
-    mmt_debug_assert(elem != NULL);
-    mmt_debug_assert(pool->element_array <= elem);
-    mmt_debug_assert(elem < pool->element_array + pool->element_count * pool->element_size);
+    mmt_debug_check(pool != NULL);
+    mmt_debug_check(elem != NULL);
+    mmt_debug_check(pool->element_array <= elem);
+    mmt_debug_check(elem < pool->element_array + pool->element_count * pool->element_size);
 
     u32 offset        = elem - pool->element_array;
     u32 elem_idx      = offset / pool->element_size;
@@ -90,7 +90,7 @@ void mem_pool_free(mem_pool* pool, u8* elem)
 
 void mem_pool_reset(mem_pool* pool)
 {
-    mmt_debug_assert(pool != NULL);
+    mmt_debug_check(pool != NULL);
 
     u32 bit_array_size = mem_pool_bit_array_size(pool);
     for (u32 i = 0u; i < bit_array_size; i++)
@@ -102,7 +102,7 @@ void mem_pool_reset(mem_pool* pool)
 
 u32 mem_pool_bit_array_size(mem_pool* pool)
 {
-    mmt_debug_assert(pool != NULL);
+    mmt_debug_check(pool != NULL);
     
     return (pool->element_count + 31u) / U32_BIT_COUNT;
 }

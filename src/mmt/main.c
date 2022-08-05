@@ -3,6 +3,7 @@
 #include "allocators/mem_pool.h"
 #include "allocators/mem_arena.h"
 #include "allocators/mem_stack.h"
+#include "util/debug_checks.h"
 
 #include <windows.h>
 #include <stdio.h>
@@ -158,6 +159,7 @@ void test_mem_pool()
 
 int main()
 {
+    mmt_debug_check(0 == 1);
     mem_init(MMT_MEM_PAGE_SIZE * 100u);
     
     mem_destroy();
